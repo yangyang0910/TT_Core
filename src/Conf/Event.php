@@ -23,8 +23,9 @@ class Event extends AEvent
         $className = APP_NAME . '\Conf\SwooleEvent';
         if (class_exists($className)) {
             $this->extendedEvent = new $className;
+        }else{
+            $this->extendedEvent = null;
         }
-        $this->extendedEvent = null;
     }
 
     /**
