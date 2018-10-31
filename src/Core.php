@@ -92,7 +92,7 @@ class Core
 
     private function defineSysConst()
     {
-        defined('ROOT') or define("ROOT", realpath(__DIR__ . '/../../../../..'));
+        defined('ROOT') or define("ROOT", realpath(__DIR__ . '/../../../..'));
         defined('APP_NAME') or define("APP_NAME", $this->appName); // IDE 提示用
         defined('APP_ENV') or define("APP_ENV", $this->appEnv); // IDE 提示用
         defined('APP_ROOT') or define("APP_ROOT", ROOT . '/App/' . APP_NAME);
