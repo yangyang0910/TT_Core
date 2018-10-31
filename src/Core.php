@@ -92,7 +92,7 @@ class Core
 
     private function defineSysConst()
     {
-        defined('ROOT') or define("ROOT", realpath(__DIR__ . '/../../../..'));
+        defined('ROOT') or define("ROOT", realpath(__DIR__ . '/../../..'));
         defined('APP_NAME') or define("APP_NAME", $this->appName); // IDE 提示用
         defined('APP_ENV') or define("APP_ENV", $this->appEnv); // IDE 提示用
         defined('APP_ROOT') or define("APP_ROOT", ROOT . '/App/' . APP_NAME);
@@ -107,8 +107,7 @@ class Core
         require_once __DIR__ . "/AutoLoader.php";
         $loader = AutoLoader::getInstance();
         $loader->addNamespace("Core", $corePath);
-        $loader->addNamespace("Common", "App/Common");
-        $loader->addNamespace(APP_NAME, ROOT . 'App/' . APP_NAME);
+        $loader->addNamespace(APP_NAME, 'App/' . APP_NAME);
         //添加系统依赖组件
         $loader->addNamespace("FastRoute", $corePath . "/Vendor/FastRoute");
         $loader->addNamespace("SuperClosure", $corePath . "/Vendor/SuperClosure");

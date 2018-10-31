@@ -74,12 +74,9 @@ class Config
      */
     private function appConf()
     {
-        $conf     = [];
         $confPath = '/App/' . APP_NAME . '/Conf';
         $confFile = $confPath . '/env/' . APP_ENV . '.php';
-        if (file_exists($confFile)) {
-            $conf = AutoLoader::getInstance()->requireFile($confFile);
-        }
-        return $conf;
+        $conf     = AutoLoader::getInstance()->requireFile($confFile);
+        return $conf ?: [];
     }
 }
