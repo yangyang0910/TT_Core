@@ -8,12 +8,16 @@
 
 namespace Core\Utility\Tree;
 
+use Core\AbstractInterface\TSingleton;
+
 /**
  * Class Trie
  * @package Core\Utility\Tree
  */
 class Trie
 {
+
+    use TSingleton;
 
     protected $nodeTree = [];
 

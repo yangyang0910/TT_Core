@@ -8,6 +8,8 @@
 
 namespace Core\Utility\Tree;
 
+use Core\AbstractInterface\TSingleton;
+
 /**
  * 单树算法
  * Class TrieSimple
@@ -15,6 +17,8 @@ namespace Core\Utility\Tree;
  */
 class TrieSimple
 {
+
+    use TSingleton;
 
     public $root;
     public $max_len;
@@ -117,6 +121,6 @@ class TrieSimple
  */
 class Node
 {
-    public $value = null;//词
+    public $value    = null;//词
     public $children = [];//节点
 }
