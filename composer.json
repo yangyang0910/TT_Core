@@ -15,7 +15,6 @@
     "ext-json": "*",
     "ext-PDO": "*",
     "ext-redis": "*",
-    "ext-apc": "*",
     "ext-pcntl": "*",
     "ext-inotify": "*",
     "ext-posix": "*",
