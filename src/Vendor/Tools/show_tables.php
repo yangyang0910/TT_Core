@@ -32,10 +32,10 @@ class showTables
 {
 	private $_mysql_conn;
 
-	private $_db_host = "rdskk56yz58kwr82t3im.mysql.rds.aliyuncs.com";
-	private $_db_username = "S945_699pic";
-	private $_db_password = "YC_Q7bhEm2Qn";
-	private $_db_name = "db_699pic_tongji";
+	private $_db_host = "";
+	private $_db_username = "";
+	private $_db_password = "";
+	private $_db_name = "";
 
 	private $_not_show_table = [];    //不需要显示的表
 	private $_not_show_field = [];   //不需要显示的字段
