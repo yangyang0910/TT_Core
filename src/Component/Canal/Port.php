@@ -44,9 +44,9 @@ class Port
     public function checkingShip($rule, Ship $ship)
     {
         switch ($rule) {
-            case Rule::CUT_FLOW_WITH_UID:
+            case Rule::CUT_FLOW_BY_UID:
                 break;
-            case Rule::CUT_FLOW_WITH_IP:
+            case Rule::CUT_FLOW_BY_IP:
                 break;
             default:
                 break;

@@ -15,25 +15,58 @@ namespace Core\Component\Canal\Ship;
  */
 class Ship
 {
-    const LEGALITY = true;
-    const ILLEGAL  = false;
+    const LEGALITY = true; // 合法
+    const ILLEGAL  = false; // 非法
 
-    private $_status = self::ILLEGAL;
+    private $_legality = self::ILLEGAL; // 合法性
 
     /**
+     * @var Course
+     */
+    private $_course;
+
+    public function __construct(Course $course)
+    {
+        $this->_course = $course;
+    }
+
+    /**
+     * 判断合法性
      * @return bool
      */
-    public function isLegal()
+    public function isLegality()
     {
-        return $this->_status;
+        return $this->_legality;
     }
 
     /**
-     * @param bool $status
+     * 设置合法性
+     * @param $legality
+     * @return $this
      */
-    public function setStatus($status)
+    public function setLegality($legality)
     {
-        $this->_status = $status;
+        $this->_legality = $legality;
+        return $this;
     }
 
+    /**
+     * 获取航向
+     * @return Course
+     */
+    public function getCourse()
+    {
+        return $this->_course;
+    }
+
+    /**
+     * 设置航向
+     * @param $course
+     * @return $this
+     */
+    public function setCourse(Course $course)
+    {
+        $this->_course = $course;
+        return $this;
+    }
 }

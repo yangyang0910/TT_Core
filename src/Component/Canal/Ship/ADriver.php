@@ -10,11 +10,10 @@ namespace Core\Component\Canal\Ship;
 
 /**
  * 驱动
- *
- * Class Driver
+ * Class ADriver
  * @package Core\Component\Canal\Ship
  */
-abstract class Driver
+abstract class ADriver
 {
 
     protected $_startUid;
@@ -23,11 +22,6 @@ abstract class Driver
     protected $_startIp;
     protected $_endIp;
     protected $_Ips     = [];
-
-    function initialize(...$args)
-    {
-        // TODO: Implement initialize() method.
-    }
 
     /**
      * @return mixed

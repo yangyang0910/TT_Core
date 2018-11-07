@@ -15,5 +15,27 @@ namespace Core\Component\Canal\Ship;
  */
 class Course
 {
+    const TO_OLD_RIVER    = 'TO_OLD_RIVER'; // 流向新河流
+    const TO_NEW_RIVER    = 'TO_NEW_RIVER'; // 流向旧河流
+    const TO_DOUBLE_RIVER = 'TO_DOUBLE_RIVER'; // 流向双河流
 
+    private $_course;
+
+    /**
+     * @return mixed
+     */
+    public function getCourse()
+    {
+        return $this->_course;
+    }
+
+    /**
+     * @param $course
+     * @return $this
+     */
+    public function setCourse($course)
+    {
+        $this->_course = $course;
+        return $this;
+    }
 }

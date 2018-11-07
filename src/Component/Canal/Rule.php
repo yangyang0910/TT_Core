@@ -15,10 +15,12 @@ namespace Core\Component\Canal;
  */
 class Rule
 {
-    const CUT_FLOW_WITH_UID = 'CUT_FLOW_WITH_UID';
-    const CUT_FLOW_WITH_IP  = 'CUT_FLOW_WITH_IP';
+    const CUT_FLOW_BY_UID = 'CUT_FLOW_BY_UID'; // 通过 uid 切流
+    const CUT_FLOW_BY_IP  = 'CUT_FLOW_BY_IP'; // 通过 ip 切流
+    const ASSIGNATION_UID = 'ASSIGNATION_UID'; // 分配指定 uid
+    const ASSIGNATION_IP  = 'ASSIGNATION_IP'; // 分配指定 ip
 
-    private $_rule = self::CUT_FLOW_WITH_UID;
+    private $_rule = self::CUT_FLOW_BY_UID;
 
     /**
      * @return string
