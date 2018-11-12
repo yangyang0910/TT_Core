@@ -8,7 +8,6 @@
 
 namespace Core;
 
-use Core\Swoole\Server;
 use Core\Conf\Config;
 use Core\Conf\Event;
 use Core\Component\Di;
@@ -67,7 +66,11 @@ class Core
 
     function run()
     {
-        Server::getInstance()->startServer();
+        if ('cron' === APP_RUN_MODE) {
+            \Core\Component\Crontab\Server::getInstance()->startServer();
+        } else {
+            \Core\Swoole\Server::getInstance()->startServer();
+        }
     }
 
     /**

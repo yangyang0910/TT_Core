@@ -55,7 +55,9 @@ function commandHandler()
     global $server;
     $server = \Core\Core::getInstance()->frameWorkInitialize($command['options']['app'], $command['options']['env']);
     if ('cron' === APP_RUN_MODE) {
-        exit('success');
+        define('CRON_SREVER_ROUTE', $command['options']['route']);
+        $server->run();
+        return;
     }
     switch ($command['command']) {
         case "start":
