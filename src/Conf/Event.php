@@ -5,7 +5,6 @@ namespace Core\Conf;
 use Core\AbstractInterface\AEvent;
 use Core\Http\Request;
 use Core\Http\Response;
-use Core\AutoLoader;
 
 /**
  * Class Event
@@ -33,7 +32,6 @@ class Event extends AEvent
      */
     function frameInitialize()
     {
-        AutoLoader::getInstance()->requireFile('vendor/autoload.php');
         if ($this->extendedEvent) {
             $this->extendedEvent->frameInitialize();
         }

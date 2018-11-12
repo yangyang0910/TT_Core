@@ -13,7 +13,7 @@ function commandParser()
     global $argv;
     $argv    = array_map('trim', $argv);
     $argv    = array_unique($argv);
-    $command = array_intersect(['start', 'stop', 'reload', '-h'], $argv);
+    $command = array_intersect(['start', 'stop', 'reload', 'cron', '-h'], $argv);
     if (false === $command = current($command)) {
         exit("command not found.\n");
     }
@@ -51,8 +51,12 @@ function commandHandler()
         exit("operating environment not found.\n");
     }
     require_once 'Core.php';
+    define('APP_RUN_MODE', 'cron' === $command['command'] ? 'cron' : 'server');
     global $server;
     $server = \Core\Core::getInstance()->frameWorkInitialize($command['options']['app'], $command['options']['env']);
+    if ('cron' === APP_RUN_MODE) {
+        exit('success');
+    }
     switch ($command['command']) {
         case "start":
             startServer($command['options']);
@@ -64,7 +68,7 @@ function commandHandler()
             reloadServer($command['options']);
             break;
         case 'version':
-            echo \Core\Component\Di::getInstance()->get(\Core\Component\SysConst::VERSION) . "\n";
+            echo \Core\Component\Di::getInstance()->get(\Core\Component\SysConst::VERSION) . PHP_EOL;
             break;
         default:
             exit("command not found.\n");
@@ -86,36 +90,37 @@ _.------------------------------------------------------------------._
 
     $now_date = date('Y-m-d H:i:s');
     $log      .= "              stat time: {$now_date} \n";
-    echo $log . "\n";
+    echo $log . PHP_EOL;
     opCacheClear();
+    /** @var \Core\Core $server */
     global $server;
     $conf = \Core\Conf\Config::getInstance();
     if (isset($options['app'])) {
         $conf->setConf("SERVER.APP_NAME", $options['app']);
     }
-    echo '  app name              ' . $conf->getConf('SERVER.APP_NAME') . "\n";
+    echo '  app name              ' . $conf->getConf('SERVER.APP_NAME') . PHP_EOL;
     if (isset($options['env'])) {
         $conf->setConf("SERVER.ENV", $options['env']);
     }
-    echo '  app running env       ' . $conf->getConf('SERVER.ENV') . "\n";
-    echo "\n";
-    echo '  running user          ' . $conf->getConf('SERVER.CONFIG.user') . "\n";
+    echo '  app running env       ' . $conf->getConf('SERVER.ENV') . PHP_EOL;
+    echo PHP_EOL;
+    echo '  running user          ' . $conf->getConf('SERVER.CONFIG.user') . PHP_EOL;
     if (isset($options['group'])) {
         $conf->setConf("SERVER.CONFIG.group", $options['group']);
     }
-    echo '  running user group     ' . $conf->getConf('SERVER.CONFIG.group') . "\n";
+    echo '  running user group     ' . $conf->getConf('SERVER.CONFIG.group') . PHP_EOL;
     if (isset($options['cpuAffinity'])) {
         $conf->setConf("SERVER.CONFIG.open_cpu_affinity", true);
     }
-    echo "\n";
+    echo PHP_EOL;
     if (isset($options['ip'])) {
         $conf->setConf("SERVER.LISTEN", $options['ip']);
     }
-    echo '  listen address        ' . $conf->getConf('SERVER.LISTEN') . "\n";
+    echo '  listen address        ' . $conf->getConf('SERVER.LISTEN') . PHP_EOL;
     if (!empty($options['p'])) {
         $conf->setConf("SERVER.PORT", $options['p']);
     }
-    echo '  listen port           ' . $conf->getConf('SERVER.PORT') . "\n";
+    echo '  listen port           ' . $conf->getConf('SERVER.PORT') . PHP_EOL;
     if (!empty($options['pid'])) {
         $pidFile = $options['pid'];
         \COre\Conf\Config::getInstance()->setConf("SERVER.CONFIG.pid_file", $pidFile);
@@ -123,11 +128,11 @@ _.------------------------------------------------------------------._
     if (isset($options['workerNum'])) {
         $conf->setConf("SERVER.CONFIG.worker_num", $options['workerNum']);
     }
-    echo '  worker num            ' . $conf->getConf('SERVER.CONFIG.worker_num') . "\n";
+    echo '  worker num            ' . $conf->getConf('SERVER.CONFIG.worker_num') . PHP_EOL;
     if (isset($options['taskWorkerNum'])) {
         $conf->setConf("SERVER.CONFIG.task_worker_num", $options['taskWorkerNum']);
     }
-    echo '  task worker num       ' . $conf->getConf('SERVER.CONFIG.task_worker_num') . "\n";
+    echo '  task worker num       ' . $conf->getConf('SERVER.CONFIG.task_worker_num') . PHP_EOL;
     if (isset($options['user'])) {
         $conf->setConf("SERVER.CONFIG.user", $options['user']);
     }
@@ -138,26 +143,26 @@ _.------------------------------------------------------------------._
     } else {
         \Core\Conf\Config::getInstance()->setConf("SERVER.CONFIG.pid_file", null);
     }
-    echo '  daemonize             ' . $label . "\n";
+    echo '  daemonize             ' . $label . PHP_EOL;
     $label = 'false';
     if ($conf->getConf('APP_DEBUG.ENABLE')) {
         $label = 'true';
     }
-    echo '  debug enable          ' . $label . "\n";
+    echo '  debug enable          ' . $label . PHP_EOL;
     $label = 'false';
     if ($conf->getConf('APP_DEBUG.LOG')) {
         $label = 'true';
     }
-    echo '  debug log error       ' . $label . "\n";
+    echo '  debug log error       ' . $label . PHP_EOL;
     $label = 'false';
     if ($conf->getConf('APP_DEBUG.DISPLAY_ERROR')) {
         $label = 'true';
     }
-    echo '  debug display error   ' . $label . "\n";
-    echo "\n";
-    echo '  php version           ' . phpversion() . "\n";
-    echo '  swoole version        ' . phpversion('swoole') . "\n";
-    echo "\n";
+    echo '  debug display error   ' . $label . PHP_EOL;
+    echo PHP_EOL;
+    echo '  php version           ' . phpversion() . PHP_EOL;
+    echo '  swoole version        ' . phpversion('swoole') . PHP_EOL;
+    echo PHP_EOL;
     $server->run();
 
 }
@@ -187,7 +192,7 @@ function stopServer($options)
     while (true) {
         usleep(1000);
         if (!swoole_process::kill($pid, 0)) {
-            echo "server stop at " . date("y-m-d h:i:s") . "\n";
+            echo "server stop at " . date("y-m-d h:i:s") . PHP_EOL;
             if (is_file($pidFile)) {
                 unlink($pidFile);
             }
@@ -225,17 +230,17 @@ function reloadServer($options)
         return;
     }
     swoole_process::kill($pid, $sig);
-    echo "send server reload command at " . date("y-m-d h:i:s") . "\n";
+    echo "send server reload command at " . date("y-m-d h:i:s") . PHP_EOL;
 }
 
 
 function help()
 {
-    echo "\n";
+    echo PHP_EOL;
     echo "------------ 启动命令 ------------\n";
-    echo "\n";
+    echo PHP_EOL;
     echo "执行【 php App/bin/swoole_server --app-appName --env-envName start】 即可启动服务。启动可选参数为:\n";
-    echo "\n";
+    echo PHP_EOL;
     echo "  --d                       是否以系统守护模式运行\n";
     echo "  --app-appName             指定 app \n";
     echo "  --env-envName             指定运行配置环境 【 dev、test、pre、pro 】\n";
@@ -247,23 +252,23 @@ function help()
     echo "  --group-groupName         指定以某个用户组身份执行\n";
     echo "  --taskWorkerNum-num       设置Task进程数\n";
     echo "  --cpuAffinity-boolean     是否开启CPU亲和\n";
-    echo "\n";
+    echo PHP_EOL;
     echo "------------ 停止命令 ------------\n";
-    echo "\n";
+    echo PHP_EOL;
     echo "执行【 php App/bin/swoole_server --app-appName stop】 即可启动服务。停止可选参数为:\n";
-    echo "\n";
+    echo PHP_EOL;
     echo "  --app-appName             指定 app \n";
     echo "  --pid-fileName            指定服务PID存储文件\n";
     echo "  --f                       强制停止服务\n";
-    echo "\n";
+    echo PHP_EOL;
     echo "------------ 重启命令 ------------\n";
-    echo "\n";
+    echo PHP_EOL;
     echo "执行【 php App/bin/swoole_server --app-appName reload】 即可重启可服务。重启可选参数为:\n";
-    echo "\n";
+    echo PHP_EOL;
     echo "  --app-appName             指定 app \n";
     echo "  --pid-fileName            指定服务PID存储文件\n";
     echo "  --pid-all                 是否重启所有进程，默认true\n";
-    echo "\n";
+    echo PHP_EOL;
 }
 
 function evenCheck()
