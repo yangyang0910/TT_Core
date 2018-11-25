@@ -85,9 +85,12 @@ class Dispatcher
         list($controllerName, $actionName) = $list;
         $finalClass = $controllerPath . '\\' . ucfirst($controllerName) . 'Controller';
         if (false === class_exists($finalClass)) {
-            exit($finalClass . 'not found');
+            exit($finalClass . ' not found');
         }
         $class = new $finalClass;
+        if (false === method_exists($class, $actionName)) {
+            exit($finalClass . '\\' .$actionName . ' not found');
+        }
         $class->$actionName();
     }
 }
