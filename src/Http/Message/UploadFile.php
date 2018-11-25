@@ -16,6 +16,10 @@ namespace Core\Http\Message;
 class UploadFile
 {
     /**
+     * @var
+     */
+    private $tempName;
+    /**
      * @var Stream
      */
     private $stream;
@@ -46,11 +50,20 @@ class UploadFile
      */
     function __construct($tempName, $size, $errorStatus, $clientFilename = null, $clientMediaType = null)
     {
+        $this->tempName        = $tempName;
         $this->stream          = new Stream(fopen($tempName, "r+"));
         $this->error           = $errorStatus;
         $this->size            = $size;
         $this->clientFileName  = $clientFilename;
         $this->clientMediaType = $clientMediaType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTempName()
+    {
+        return $this->tempName;
     }
 
     /**

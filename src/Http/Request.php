@@ -198,21 +198,37 @@ class Request extends ServerRequest
      */
     private function initFiles()
     {
-        if (isset($this->swoole_http_request->files)) {
+        if (isset($this->request->files)) {
             $normalized = [];
             foreach ($this->swoole_http_request->files as $key => $value) {
-                $normalized[$key] = new UploadFile(
-                    $value['tmp_name'],
-                    (int)$value['size'],
-                    (int)$value['error'],
-                    $value['name'],
-                    $value['type']
-                );
+                if (is_array($value) && !isset($value['tmp_name'])) {
+                    $normalized[$key] = [];
+                    foreach ($value as $file) {
+                        $normalized[$key][] = $this->initFile($file);
+                    }
+                    continue;
+                }
+                $normalized[$key] = $this->initFile($value);
             }
             return $normalized;
         } else {
             return [];
         }
+    }
+
+    /**
+     * @param array $file
+     * @return UploadFile
+     */
+    private function initFile(array $file)
+    {
+        return new UploadFile(
+            $file['tmp_name'],
+            (int) $file['size'],
+            (int) $file['error'],
+            $file['name'],
+            $file['type']
+        );
     }
 
     /**
