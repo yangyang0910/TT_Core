@@ -198,7 +198,7 @@ class Request extends ServerRequest
      */
     private function initFiles()
     {
-        if (isset($this->request->files)) {
+        if (isset($this->swoole_http_request->files)) {
             $normalized = [];
             foreach ($this->swoole_http_request->files as $key => $value) {
                 if (is_array($value) && !isset($value['tmp_name'])) {
