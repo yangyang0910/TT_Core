@@ -144,6 +144,8 @@ class AHttpController extends ABaseController
             ob_start();
             $this->_templateEngine->fetch($template, $vars, $config);
             $content = ob_get_clean();
+            $this->response()->withStatus(Status::CODE_OK);
+            $this->response()->withHeader('Content-type', 'text/html; charset=utf-8');
             $this->response()->write($content);
         }
     }
