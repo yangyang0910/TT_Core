@@ -6,7 +6,7 @@
  * Time: 0:30
  */
 
-namespace Core\Component\Crontab;
+namespace Core\Component\Schedule;
 
 use Core\Swoole\Memory\TableManager;
 use Core\Utility\SnowFlake;

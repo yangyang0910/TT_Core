@@ -6,7 +6,7 @@
  * Time: 23:44:07
  */
 
-namespace Core\Component\Crontab;
+namespace Core\Component\Schedule;
 
 use Core\Component\Di;
 use Core\Component\Error\Trigger;

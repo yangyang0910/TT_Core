@@ -6,7 +6,7 @@
  * Time: 上午12:44
  */
 
-namespace Core\Component\Crontab;
+namespace Core\Component\Schedule;
 
 use Core\Conf\Config;
 use Core\Conf\Event;
@@ -68,9 +68,9 @@ class Dispatcher
      */
     function dispatch()
     {
-        $pathInfo       = CRON_SREVER_ROUTE;
+        $pathInfo       = SCHEDULE_SERVER_ROUTE;
         $list           = explode("/", $pathInfo);
-        $controllerPath = APP_NAME . "\\Crontab";
+        $controllerPath = APP_NAME . "\\Schedule";
         $appName        = null;
         $controllerName = null;
         $actionName     = null;
@@ -80,7 +80,7 @@ class Dispatcher
             reset($list);
         }
         if (2 > count($list)) {
-            exit('cron route size must be more than the 2');
+            exit('schedule route size must be more than the 2');
         }
         list($controllerName, $actionName) = $list;
         $finalClass = $controllerPath . '\\' . ucfirst($controllerName) . 'Controller';
