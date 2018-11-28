@@ -8,10 +8,7 @@
 
 namespace Core\Component\Schedule;
 
-use Core\Component\Di;
-use Core\Component\Error\Trigger;
-use Core\Component\SuperClosure;
-use Core\Component\SysConst;
+
 use Core\Conf\Event;
 
 /**

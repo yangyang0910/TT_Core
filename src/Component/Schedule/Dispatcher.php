@@ -8,12 +8,6 @@
 
 namespace Core\Component\Schedule;
 
-use Core\Conf\Config;
-use Core\Conf\Event;
-use Core\AbstractInterface\ABaseController as Controller;
-use Core\Component\Di;
-use Core\Component\SysConst;
-
 /**
  * Class Dispatcher
  * @package Core\Http
@@ -83,7 +77,7 @@ class Dispatcher
             exit('schedule route size must be more than the 2');
         }
         list($controllerName, $actionName) = $list;
-        $finalClass = $controllerPath . '\\' . ucfirst($controllerName) . 'Controller';
+        $finalClass = $controllerPath . '\\' . ucfirst($controllerName) . 'Schedule';
         if (false === class_exists($finalClass)) {
             exit($finalClass . ' not found');
         }
