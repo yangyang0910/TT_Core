@@ -52,7 +52,10 @@ class Dispatcher
      * @var array
      */
     protected $serverParamMap = [];
-
+    /**
+     * @var array
+     */
+    protected $passVersionList = ['v1','v2','v3','v4','v5','v6','v7','v8','v9'];
     /**
      * @return Dispatcher
      */
@@ -125,7 +128,7 @@ class Dispatcher
             $controllerName = null;
             $actionName     = null;
             $finalClass     = null;
-            if (preg_match('/v\d/', current($list))) { //版本控制
+            if (in_array(current($list), $this->passVersionList, true)) { //版本控制
                 $controllerPath .= ucfirst(array_shift($list));
                 reset($list);
             }
