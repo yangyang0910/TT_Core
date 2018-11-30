@@ -255,5 +255,4 @@ class Dispatcher
             $this->fastRouterDispatcher = false;
         }
     }
-
 }
