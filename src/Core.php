@@ -66,8 +66,8 @@ class Core
 
     function run()
     {
-        if ('cron' === APP_RUN_MODE) {
-            \Core\Component\Crontab\Server::getInstance()->startServer();
+        if ('schedule' === APP_RUN_MODE) {
+            \Core\Component\Schedule\Server::getInstance()->startServer();
         } else {
             \Core\Swoole\Server::getInstance()->startServer();
         }

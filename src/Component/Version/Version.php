@@ -73,7 +73,7 @@ class Version
         if ($this->dispatcher == null) {
             $this->dispatcher = new Dispatcher($this->routeCollector->getData());
         }
-        return $this->dispatcher->dispatch($urlPath, $requestMethod);
+        return $this->dispatcher->dispatch($requestMethod, $urlPath);
     }
 
     /**

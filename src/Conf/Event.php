@@ -22,7 +22,7 @@ class Event extends AEvent
         $className = APP_NAME . '\Conf\SwooleEvent';
         if (class_exists($className)) {
             $this->extendedEvent = new $className;
-        }else{
+        } else {
             $this->extendedEvent = null;
         }
     }
@@ -223,7 +223,8 @@ class Event extends AEvent
 //                $pid        = file_get_contents(Config::getInstance()->getConf("SERVER.CONFIG.pid_file"));
 //                $autoReload = new \Core\Swoole\AutoReload($pid);
                 $autoReload = new \Core\Swoole\AutoReload();
-                $autoReload->watch(ROOT . "/App");
+                $autoReload->watch(ROOT . "/App/Common");
+                $autoReload->watch(ROOT . "/App/" . APP_NAME);
                 $autoReload->run();
             }
         }

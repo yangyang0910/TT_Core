@@ -13,7 +13,7 @@ function commandParser()
     global $argv;
     $argv    = array_map('trim', $argv);
     $argv    = array_unique($argv);
-    $command = array_intersect(['start', 'stop', 'reload', 'cron', '-h'], $argv);
+    $command = array_intersect(['start', 'stop', 'reload', 'schedule', '-h'], $argv);
     if (false === $command = current($command)) {
         exit("command not found.\n");
     }
@@ -51,11 +51,11 @@ function commandHandler()
         exit("operating environment not found.\n");
     }
     require_once 'Core.php';
-    define('APP_RUN_MODE', 'cron' === $command['command'] ? 'cron' : 'server');
+    define('APP_RUN_MODE', 'schedule' === $command['command'] ? 'schedule' : 'server');
     global $server;
     $server = \Core\Core::getInstance()->frameWorkInitialize($command['options']['app'], $command['options']['env']);
-    if ('cron' === APP_RUN_MODE) {
-        define('CRON_SREVER_ROUTE', $command['options']['route']);
+    if ('schedule' === APP_RUN_MODE) {
+        define('SCHEDULE_SERVER_ROUTE', $command['options']['route']);
         $server->run();
         return;
     }
