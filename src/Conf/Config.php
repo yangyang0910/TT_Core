@@ -85,7 +85,7 @@ class Config
 
     private function appCommonConf()
     {
-        $confFile = '/App/Common/Conf/Conf.php';
+        $confFile = '/App/Common/Conf/Config.php';
         $conf     = AutoLoader::getInstance()->requireFile($confFile);
         return $conf ?: [];
     }
