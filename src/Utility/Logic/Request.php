@@ -50,15 +50,17 @@ class Request
 
     /**
      * @param null|string|int $key
+     *
      * @return array|null|string
      */
-    public function getId($key = NULL)
+    public function getId($key = null)
     {
         return $this->_resolveData($this->id, $key);
     }
 
     /**
      * @param string|int $id
+     *
      * @return Request
      */
     public function setId($id)
@@ -69,15 +71,17 @@ class Request
 
     /**
      * @param null|string|int $key
+     *
      * @return array|null|string
      */
-    public function getData($key = NULL)
+    public function getData($key = null)
     {
         return $this->_resolveData($this->data, $key);
     }
 
     /**
      * @param array $data
+     *
      * @return Request
      */
     public function setData(array $data)
@@ -88,15 +92,17 @@ class Request
 
     /**
      * @param null|string|int $key
+     *
      * @return array|null|string
      */
-    public function getWhere($key = NULL)
+    public function getWhere($key = null)
     {
         return $this->_resolveData($this->where, $key);
     }
 
     /**
      * @param array $where
+     *
      * @return Request
      */
     public function setWhere(array $where)
@@ -107,25 +113,27 @@ class Request
 
     /**
      * @param null $key
+     *
      * @return null|string
      */
-    public function getField($key = NULL)
+    public function getField($key = null)
     {
         if (!$data = $this->field) {
-            return NULL;
+            return null;
         }
-        if ($key === NULL) {
+        if ($key === null) {
             return !empty($data)
                 ? \join(',', $data)
-                : NULL;
+                : null;
         }
         return isset($data[$key])
             ? \join(',', $data[$key])
-            : NULL;
+            : null;
     }
 
     /**
      * @param array $field
+     *
      * @return Request
      */
     public function setField(array $field)
@@ -136,9 +144,10 @@ class Request
 
     /**
      * @param string|null $key
+     *
      * @return array|null|string
      */
-    public function getOrder($key = NULL)
+    public function getOrder($key = null)
     {
         return $this->_resolveData($this->order, $key);
     }
@@ -164,6 +173,7 @@ class Request
 
     /**
      * @param array $order
+     *
      * @return Request
      */
     public function setOrder(array $order)
@@ -174,15 +184,17 @@ class Request
 
     /**
      * @param null|string|int $key
+     *
      * @return array|null|string
      */
-    public function getExtend($key = NULL)
+    public function getExtend($key = null)
     {
         return $this->_resolveData($this->extend, $key);
     }
 
     /**
      * @param array $extend
+     *
      * @return Request
      */
     public function setExtend(array $extend)
@@ -193,15 +205,17 @@ class Request
 
     /**
      * @param null|string|int $key
+     *
      * @return array|null|string
      */
-    public function getPage($key = NULL)
+    public function getPage($key = null)
     {
         return $this->_resolveData($this->page, $key);
     }
 
     /**
      * @param array $page
+     *
      * @return Request
      */
     public function setPage(array $page)
@@ -216,20 +230,21 @@ class Request
     /**
      * @param $data
      * @param $key
+     *
      * @return null|array|string
      */
     private function _resolveData($data, $key)
     {
-        if (NULL === $data) {
-            return NULL;
+        if (null === $data) {
+            return null;
         }
-        if ($key === NULL) {
+        if ($key === null) {
             return !empty($data)
                 ? $data
-                : NULL;
+                : null;
         }
         return isset($data[$key])
             ? $data[$key]
-            : NULL;
+            : null;
     }
 }

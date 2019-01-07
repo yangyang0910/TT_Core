@@ -14,10 +14,10 @@ namespace Core\Utility\Logic;
  */
 class Response
 {
-    protected $data = NUll;
-    protected $page = NULL;
+    protected $data = null;
+    protected $page = null;
     protected $msg = 'success';
-    protected $status = TRUE;
+    protected $status = true;
     protected $code = 0;
     /**
      * @var ACodePhrase
@@ -45,6 +45,7 @@ class Response
 
     /**
      * @param null $data
+     *
      * @return Response
      */
     public function setData($data)
@@ -55,21 +56,23 @@ class Response
 
     /**
      * @param null $key
+     *
      * @return null
      */
-    public function getPage($key = NULL)
+    public function getPage($key = null)
     {
-        if (NULL === $key) {
+        if (null === $key) {
             return $this->page;
         }
         if (!isset($this->page[$key])) {
-            return NULL;
+            return null;
         }
         return $this->page[$key];
     }
 
     /**
      * @param null $page
+     *
      * @return Response
      */
     public function setPage($page)
@@ -88,6 +91,7 @@ class Response
 
     /**
      * @param null $msg
+     *
      * @return Response
      */
     public function setMsg($msg)
@@ -106,6 +110,7 @@ class Response
 
     /**
      * @param int $code
+     *
      * @return Response
      */
     public function setCode($code)
@@ -140,6 +145,7 @@ class Response
 
     /**
      * @param int $status
+     *
      * @return Response
      */
     public function setStatus($status)
@@ -148,20 +154,30 @@ class Response
         return $this;
     }
 
-    public function success($data = NULL, $msg = NULL, $code = NULl)
+    public function success($data = null, $msg = null, $code = null)
     {
-        if ($data) $this->setData($data);
-        if ($msg) $this->setMsg($msg);
-        if ($code) $this->setCode($code);
-        $this->setStatus(TRUE);
+        if ($data) {
+            $this->setData($data);
+        }
+        if ($msg) {
+            $this->setMsg($msg);
+        }
+        if ($code) {
+            $this->setCode($code);
+        }
+        $this->setStatus(true);
         return $this->_send();
     }
 
-    public function error($msg = 'error', $code = NULL)
+    public function error($msg = null, $code = null)
     {
-        if ($msg) $this->setMsg($msg);
-        if ($code) $this->setCode($code);
-        $this->setStatus(FALSE);
+        if ($msg) {
+            $this->setMsg($msg);
+        }
+        if ($code) {
+            $this->setCode($code);
+        }
+        $this->setStatus(false);
         return $this->_send();
     }
 

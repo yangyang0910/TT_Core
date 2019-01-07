@@ -74,6 +74,7 @@ abstract class ALogic
 
     /**
      * @param $actionName
+     *
      * @return Response
      */
     function actionNotFound($actionName)
@@ -83,6 +84,7 @@ abstract class ALogic
 
     /**
      * @param string $actionName
+     *
      * @return Response
      */
     function call($actionName)
@@ -91,14 +93,14 @@ abstract class ALogic
             return $this->actionNotFound($actionName);
         }
         $eventActions = ['getList', 'getInfo', 'create', 'update', 'delete'];
-        if (\in_array($actionName, $eventActions, TRUE)) {
+        if (\in_array($actionName, $eventActions, true)) {
             $eventBeforeActionName = '_EVENT_before' . ucfirst($actionName);
             if (method_exists($this, $eventBeforeActionName)) {
                 $this->$eventBeforeActionName();
             }
         }
         $response = $this->$actionName();
-        if (\in_array($actionName, $eventActions, TRUE)) {
+        if (\in_array($actionName, $eventActions, true)) {
             $eventAfterActionName = '_EVENT_after' . ucfirst($actionName);
             if (method_exists($this, $eventAfterActionName)) {
                 $this->$eventAfterActionName();

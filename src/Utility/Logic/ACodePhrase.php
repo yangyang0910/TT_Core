@@ -26,6 +26,7 @@ class ACodePhrase
 
     /**
      * @param $statusCode
+     *
      * @return mixed|null
      */
     static function getReasonPhrase($statusCode)
