@@ -9,8 +9,8 @@
     }
   ],
   "require": {
-    "php": ">=7.2",
-    "ext-swoole": ">=1.9.10",
+    "php": ">=7.1",
+    "ext-swoole": ">=4.2.7",
     "ext-curl": "*",
     "ext-json": "*",
     "ext-PDO": "*",
